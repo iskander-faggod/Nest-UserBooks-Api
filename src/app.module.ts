@@ -6,13 +6,14 @@ import { BookModule } from './modules/Book /book.module';
 import { Book } from './modules/Book /entities/book.entity';
 import { UserModule } from './modules/User/user.module';
 import { User } from './modules/User/entities/user.entity';
-import { BookController } from './book/book.controller';
+import { BookController } from './modules/Book /controllers/book.controller';
+
 
 @Module({
   imports: [TypeOrmModule.forRoot(),
     BookModule,
     UserModule],
-  controllers: [AppController],
+  controllers: [AppController, BookController],
   providers: [AppService],
 })
 export class AppModule {
