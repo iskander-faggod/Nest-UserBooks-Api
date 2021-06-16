@@ -6,7 +6,7 @@ import { Controller, Delete, Get, Post } from '@nestjs/common';
 //getOne
 //getMany
 
-@Controller('books')
+@Controller('api/books')
 export class BookController {
 
   @Get()
