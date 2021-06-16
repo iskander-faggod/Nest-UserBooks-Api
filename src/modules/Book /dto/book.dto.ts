@@ -1,10 +1,16 @@
 export class CreateBookDto {
   authorName : string;
-  bookName : string;
-  isActive : boolean;
+  booksName : string;
+  isActive? : boolean;
 }
 
 export class EditBookDto {
   authorName : string;
-  bookName : string;
+  booksName : string;
+  isActive? : boolean;
 }
+
+export class ReturnBookDto {
+  isActive : boolean;
+}
+
