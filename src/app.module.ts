@@ -7,14 +7,24 @@ import { Book } from './modules/Book /entities/book.entity';
 import { UserModule } from './modules/User/user.module';
 import { User } from './modules/User/entities/user.entity';
 import { BookController } from './modules/Book /controllers/book.controller';
+import { BooksService } from './modules/Book /services/book.service';
 
 
 @Module({
-  imports: [TypeOrmModule.forRoot(),
+  imports: [TypeOrmModule.forRoot({
+    type: 'mysql',
+    host: 'localhost',
+    port: 3306,
+    username: 'root',
+    password: '',
+    database: 'NestApiShop',
+    entities: [User, Book],
+    synchronize: true,
+  }),
     BookModule,
     UserModule],
   controllers: [AppController, BookController],
-  providers: [AppService],
+  providers: [AppService, BooksService],
 })
 export class AppModule {
 }

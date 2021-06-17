@@ -5,6 +5,7 @@ import { BooksService } from '../../Book /services/book.service';
 import { UsersService } from '../services/user.service';
 import { Book } from '../../Book /entities/book.entity';
 import { CreateBookDto, EditBookDto } from '../../Book /dto/book.dto';
+import { ApiOperation } from '@nestjs/swagger';
 //addUser +
 //editUser +
 //removeUser +
@@ -16,22 +17,26 @@ export class UsersController {
   constructor(private readonly userService: UsersService, private readonly bookService: BooksService) {
   }
 
+  @ApiOperation({ summary: "Получение всех пользователей" })
   @Get()
   getAllUsers(): Promise<User[]> {
     return this.userService.findAll();
   }
 
+  @ApiOperation({ summary: "Получение пользователя по id" })
   @Get(':id')
   getOneUser(@Param('id') id: string): Promise<User> {
     return this.userService.findOne(id);
   }
 
 
+  @ApiOperation({ summary: "Создание пользователя" })
   @Post()
   createUser(@Body() createUserDto: CreateUserDto, createBookDto: CreateBookDto): Promise<User> {
     return this.userService.create(createUserDto, createBookDto);
   }
 
+  @ApiOperation({ summary: "Редактирование пользователя" })
   @Put(':id')
   async editBook(@Body() editUserDto: EditUserDto, @Param('id') id: string): Promise<User | { error }> {
     const user = await this.userService.findOne(id);
@@ -48,18 +53,20 @@ export class UsersController {
     return this.userService.edit(user);
   }
 
+  @ApiOperation({ summary: "Покупка абонемента" })
   @Patch('card')
   buyCard(@Body() user: User): User {
     user.withCard = true;
     return user;
   }
 
-
+  @ApiOperation({ summary: "Удаление пользователя" })
   @Delete(':id')
   async deleteUser(@Param('id') id: string) {
     return await this.userService.remove(id);
   }
 
+  @ApiOperation({ summary: "Добавления книги к пользователю" })
   @Put('id:author:title')
   async addBookToUser(@Param('id') id: string, @Param('author') author: string, @Param('title') title: string, addBookDto: AddBookDto): Promise<User> {
     const user = await this.userService.findOne(id);

@@ -4,8 +4,8 @@ import { ApiProperty } from "@nestjs/swagger";
 
 @Entity()
 export class User {
-  @PrimaryGeneratedColumn()
   @ApiProperty({ example: "1", description: "Уникальный идентификатор" })
+  @PrimaryGeneratedColumn()
   id: string;
 
   @ApiProperty({ example: "iskander-faggod", description: "Логин" })
@@ -16,9 +16,11 @@ export class User {
   @Column()
   password: string;
 
+  @ApiProperty({ example: "True", description: "Есть ли абонемент"})
   @Column({ default: false })
   withCard: boolean;
 
+  @ApiProperty({ example: "Три товарища, Милые кости", description: "Список книг" })
   @OneToMany(type => Book, book => book.id)
   books: Book[];
 }
