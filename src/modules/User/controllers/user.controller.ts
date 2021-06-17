@@ -12,7 +12,7 @@ import { CreateBookDto, EditBookDto } from '../../Book /dto/book.dto';
 //currentUser +
 //addBookToUser (Post) +
 @Controller('api/users')
-export class BookController {
+export class UsersController {
   constructor(private readonly userService: UsersService, private readonly bookService: BooksService) {
   }
 

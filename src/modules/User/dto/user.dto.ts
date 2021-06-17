@@ -1,4 +1,5 @@
 import { Book } from '../../Book /entities/book.entity';
+import { ApiProperty } from '@nestjs/swagger';
 
 export class CreateUserDto{
   login : string;

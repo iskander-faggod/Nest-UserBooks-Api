@@ -1,3 +1,4 @@
+import { ApiProperty } from '@nestjs/swagger';
 export class CreateBookDto {
   authorName : string;
   booksName : string;
