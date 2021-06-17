@@ -22,7 +22,8 @@ import { BooksService } from './modules/Book /services/book.service';
     synchronize: true,
   }),
     BookModule,
-    UserModule],
+    // UserModule],
+    ],
   controllers: [AppController, BookController],
   providers: [AppService, BooksService],
 })
