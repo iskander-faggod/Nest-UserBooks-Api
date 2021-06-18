@@ -16,26 +16,26 @@ export class UsersService {
     private bookService: BooksService,
   ) {}
 
-  findAll(): Promise<User[]> {
+  findAllUsers(): Promise<User[]> {
     return this.usersRepository.find();
   }
 
-  findOne(id: string): Promise<User> {
+  findOneUser(id: string): Promise<User> {
     return this.usersRepository.findOne(id);
   }
 
-  async remove(id: string): Promise<void> {
+  async removeUser(id: string): Promise<void> {
     await this.usersRepository.delete(id);
   }
 
-  async create(createUserDto: CreateUserDto, createBookDto : CreateBookDto): Promise<User> {
+  async createUser(createUserDto: CreateUserDto, createBookDto : CreateBookDto): Promise<User> {
     const newUser = await this.usersRepository.create(createUserDto);
     const book = await this.bookService.getBookByValue(createBookDto.authorName, createBookDto.booksName);
     newUser.books=[book]
     return newUser
   }
 
-  async edit(user: User): Promise<User> {
+  async editUser(user: User): Promise<User> {
     return this.usersRepository.save(user);
   }
 

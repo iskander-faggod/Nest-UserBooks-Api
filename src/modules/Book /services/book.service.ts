@@ -12,29 +12,29 @@ export class BooksService {
   ) {
   }
 
-  async findAll(): Promise<Book[]> {
+  async findAllBooks(): Promise<Book[]> {
     return await this.booksRepository.find();
   }
 
-  async findOne(id: string): Promise<Book> {
+  async findOneBook(id: string): Promise<Book> {
     return await this.booksRepository.findOne(id);
   }
 
 
-  async remove(id: string): Promise<void> {
+  async removeBook(id: string): Promise<void> {
     await this.booksRepository.delete(id);
   }
 
-  async create(book: Book): Promise<Book> {
+  async createBook(book: Book): Promise<Book> {
     delete book.id;
     return await this.booksRepository.save(book);
   }
 
-  async edit(book: Book): Promise<Book> {
+  async editBook(book: Book): Promise<Book> {
     return this.booksRepository.save(book);
   }
 
-  async return(book: Book): Promise<Book> {
+  async returnBook(book: Book): Promise<Book> {
     book.isActive = false
     return this.booksRepository.save(book);
   }

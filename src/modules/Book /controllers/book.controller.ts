@@ -18,13 +18,13 @@ export class BookController {
   @ApiOperation({ summary: "Получение списка всех книг" })
   @Get()
   getAllBooks(): Promise<Book[]> {
-    return this.bookService.findAll();
+    return this.bookService.findAllBooks();
   }
 
   @ApiOperation({ summary: "Получение книги по id" })
   @Get(':id')
   getOneBook(@Param('id') bookId: string): Promise<Book> {
-    return this.bookService.findOne(bookId);
+    return this.bookService.findOneBook(bookId);
   }
 
   @ApiOperation({ summary: "Создание новой книги" })
@@ -36,13 +36,13 @@ export class BookController {
     if (createBookDto.isActive != undefined) {
       book.isActive = createBookDto.isActive;
     }
-    return this.bookService.create(book);
+    return this.bookService.createBook(book);
   }
 
   @ApiOperation({ summary: "Редактировать книгу" })
   @Put(':id')
   async editBook(@Body() editBookDto: EditBookDto, @Param('id') id: string): Promise<Book | { error }> {
-    const book = await this.bookService.findOne(id);
+    const book = await this.bookService.findOneBook(id);
     if (book == undefined) {
       return {
         error: 'Book not found',
@@ -51,21 +51,21 @@ export class BookController {
     book.authorName = editBookDto.authorName;
     book.booksName = editBookDto.booksName;
     book.isActive = editBookDto.isActive;
-    return this.bookService.edit(book);
+    return this.bookService.editBook(book);
   }
 
   @ApiOperation({ summary: "Возврат книги пользователю" })
   @Put('return/:id')
   async returnBook(@Body() returnBookDto: ReturnBookDto, @Param('id') id: string): Promise<Book>{
-    const book = await this.bookService.findOne(id);
+    const book = await this.bookService.findOneBook(id);
     book.isActive = false;
-    return this.bookService.return(book)
+    return this.bookService.returnBook(book)
   }
 
   @ApiOperation({ summary: "Удаление книги" })
   @Delete(':id')
   deleteBook(@Param('id') bookId: string): Promise<void> {
-    return this.bookService.remove(bookId);
+    return this.bookService.removeBook(bookId);
   }
 
   @ApiOperation({ summary: "Получение книги по автору и названию" })
