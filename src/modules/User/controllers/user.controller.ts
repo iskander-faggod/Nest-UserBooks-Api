@@ -45,7 +45,6 @@ export class UsersController {
     if (user == undefined) {
       throw  new HttpException('Can not edit user', 404)
     }
-
     user.withCard = editUserDto.withCard;
     user.books = editUserDto.books;
     user.login = editUserDto.login;
