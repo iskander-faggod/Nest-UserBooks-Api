@@ -20,11 +20,11 @@ export class UsersService {
     return this.usersRepository.find();
   }
 
-  findOneUser(id: string): Promise<User> {
+  findOneUser(id: number): Promise<User> {
     return this.usersRepository.findOne(id);
   }
 
-  async removeUser(id: string): Promise<void> {
+  async removeUser(id: number): Promise<void> {
     await this.usersRepository.delete(id);
   }
 

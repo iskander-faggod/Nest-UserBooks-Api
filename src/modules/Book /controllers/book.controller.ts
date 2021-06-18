@@ -2,13 +2,13 @@ import { Body, Controller, Delete, Get, HttpException, Param, Post, Put } from '
 import { Book } from '../entities/book.entity';
 import { CreateBookDto, EditBookDto, ReturnBookDto } from '../dto/book.dto';
 import { BooksService } from '../services/book.service';
-import { ApiOperation } from '@nestjs/swagger';
+import { ApiOperation, ApiTags } from '@nestjs/swagger';
 //addBook (Create/Update) DONE
 //returnBook DONE
 //deleteBook (delete) DONE
 //getOne DONE
 //getMany DONE
-
+@ApiTags('Книги')
 @Controller('api/books')
 export class BookController {
 
@@ -23,7 +23,7 @@ export class BookController {
 
   @ApiOperation({ summary: 'Получение книги по id' })
   @Get(':id')
-  getOneBook(@Param('id') bookId: string): Promise<Book> {
+  getOneBook(@Param('id') bookId: number): Promise<Book> {
     return this.bookService.findOneBook(bookId);
   }
 
@@ -41,7 +41,7 @@ export class BookController {
 
   @ApiOperation({ summary: 'Редактировать книгу' })
   @Put(':id')
-  async editBook(@Body() editBookDto: EditBookDto, @Param('id') id: string): Promise<Book | { error }> {
+  async editBook(@Body() editBookDto: EditBookDto, @Param('id') id: number): Promise<Book | { error }> {
     const book = await this.bookService.findOneBook(id);
     if (book == undefined) {
       throw  new HttpException('Cannot edit book', 404);
@@ -54,7 +54,7 @@ export class BookController {
 
   @ApiOperation({ summary: 'Возврат книги пользователю' })
   @Put('return/:id')
-  async returnBook(@Body() returnBookDto: ReturnBookDto, @Param('id') id: string): Promise<Book> {
+  async returnBook(@Body() returnBookDto: ReturnBookDto, @Param('id') id: number): Promise<Book> {
     const book = await this.bookService.findOneBook(id);
     if (book == undefined) {
       throw  new HttpException('Cannot return book', 404);
@@ -65,7 +65,7 @@ export class BookController {
 
   @ApiOperation({ summary: 'Удаление книги' })
   @Delete(':id')
-  deleteBook(@Param('id') bookId: string): Promise<void> {
+  deleteBook(@Param('id') bookId: number): Promise<void> {
     return this.bookService.removeBook(bookId);
   }
 

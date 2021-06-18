@@ -8,7 +8,7 @@ async function bootstrap() {
     .setTitle('User-Book API')
     .setDescription('The test task')
     .setVersion('1.0')
-    .addTag('shopApi')
+    .addTag('API для тестового задания')
     .build();
   const document = SwaggerModule.createDocument(app, options);
   SwaggerModule.setup('swagger', app, document);

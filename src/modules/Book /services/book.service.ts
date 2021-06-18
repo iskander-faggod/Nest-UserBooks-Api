@@ -16,12 +16,12 @@ export class BooksService {
     return await this.booksRepository.find();
   }
 
-  async findOneBook(id: string): Promise<Book> {
+  async findOneBook(id: number): Promise<Book> {
     return await this.booksRepository.findOne(id);
   }
 
 
-  async removeBook(id: string): Promise<void> {
+  async removeBook(id: number): Promise<void> {
     await this.booksRepository.delete(id);
   }
 

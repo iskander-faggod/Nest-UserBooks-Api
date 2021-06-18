@@ -5,7 +5,7 @@ import { BooksService } from '../../Book /services/book.service';
 import { UsersService } from '../services/user.service';
 import { Book } from '../../Book /entities/book.entity';
 import { CreateBookDto, EditBookDto } from '../../Book /dto/book.dto';
-import { ApiOperation } from '@nestjs/swagger';
+import { ApiOperation, ApiTags } from '@nestjs/swagger';
 //  Needed methods :
 //addUser +
 //editUser +
@@ -13,7 +13,7 @@ import { ApiOperation } from '@nestjs/swagger';
 //allUsers +
 //currentUser +
 //addBookToUser (Post) +
-
+@ApiTags('Пользователи')
 @Controller('api/users')
 export class UsersController {
   constructor(private readonly userService: UsersService, private readonly bookService: BooksService) {
@@ -27,7 +27,7 @@ export class UsersController {
 
   @ApiOperation({ summary: "Получение пользователя по id" })
   @Get(':id')
-  getOneUser(@Param('id') id: string): Promise<User> {
+  getOneUser(@Param('id') id: number): Promise<User> {
     return this.userService.findOneUser(id);
   }
 
@@ -40,7 +40,7 @@ export class UsersController {
 
   @ApiOperation({ summary: "Редактирование пользователя" })
   @Put(':id')
-  async editBook(@Body() editUserDto: EditUserDto, @Param('id') id: string): Promise<User | { error }> {
+  async editBook(@Body() editUserDto: EditUserDto, @Param('id') id: number): Promise<User | { error }> {
     const user = await this.userService.findOneUser(id);
     if (user == undefined) {
       throw  new HttpException('Can not edit user', 404)
@@ -62,13 +62,13 @@ export class UsersController {
 
   @ApiOperation({ summary: "Удаление пользователя" })
   @Delete(':id')
-  async deleteUser(@Param('id') id: string) {
+  async deleteUser(@Param('id') id: number) {
     return await this.userService.removeUser(id);
   }
 
   @ApiOperation({ summary: "Добавления книги к пользователю" })
   @Put('id:author:title')
-  async addBookToUser(@Param('id') id: string, @Param('author') author: string, @Param('title') title: string, addBookDto: AddBookDto): Promise<User> {
+  async addBookToUser(@Param('id') id: number, @Param('author') author: string, @Param('title') title: string, addBookDto: AddBookDto): Promise<User> {
     const user = await this.userService.findOneUser(id);
     const book = await this.bookService.getBookByValue(author, title);
     if (user && book && user.withCard) {
