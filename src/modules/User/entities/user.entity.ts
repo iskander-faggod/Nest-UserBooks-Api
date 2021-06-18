@@ -2,6 +2,8 @@ import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
 import { Book } from '../../Book /entities/book.entity';
 import { ApiProperty } from "@nestjs/swagger";
 
+
+
 @Entity()
 export class User {
   @ApiProperty({ example: "1", description: "Уникальный идентификатор" })
@@ -9,14 +11,14 @@ export class User {
   id: number;
 
   @ApiProperty({ example: "iskander-faggod", description: "Логин" })
-  @Column()
+  @Column({unique: true})
   login: string;
 
   @ApiProperty({ example: "qwerty", description: "Пароль" })
   @Column()
   password: string;
 
-  @ApiProperty({ example: "True", description: "Есть ли абонемент"})
+  @ApiProperty({ example: "true", description: "Есть ли абонемент"})
   @Column({ default: false })
   withCard: boolean;
 
